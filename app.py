@@ -14,7 +14,7 @@ st.set_page_config(layout="wide")
 
 st.title("Dashboard de Reclamações - ReclameAqui")
 
-url = "https://raw.githubusercontent.com/lucasF4lcao/analise_reclameaqui/main/reclamacoes_tratado.csv"
+url = "https://raw.githubusercontent.com/lucasF4lcao/analise_reclameaqui/main/datasets/reclamacoes_tratado.csv"
 df = pd.read_csv(url)
 
 df["tamanho_texto"] = df["DESCRICAO"].astype(str).apply(len)
