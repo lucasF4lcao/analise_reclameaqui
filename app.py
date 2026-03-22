@@ -18,7 +18,9 @@ st.title("Dashboard de Reclamações - ReclameAqui")
 # CARREGAR DADOS
 # =============================
 
-df = pd.read_csv("reclamacoes_tratado.csv")
+url = "https://raw.githubusercontent.com/lucasF4lcao/analise_reclameaqui/main/reclamacoes_tratado.csv"
+
+df = pd.read_csv(url)
 
 # =============================
 # VARIÁVEIS DERIVADAS
@@ -202,12 +204,5 @@ ax.imshow(wordcloud)
 ax.axis("off")
 
 st.pyplot(fig)
-
-# =============================
-# DEBUG
-# =============================
-
-st.write("Total original:", len(df))
-st.write("Total filtrado:", len(df_filtrado))
 
 # streamlit run app.py
