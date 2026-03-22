@@ -14,24 +14,13 @@ st.set_page_config(layout="wide")
 
 st.title("Dashboard de Reclamações - ReclameAqui")
 
-# =============================
-# CARREGAR DADOS
-# =============================
-
 url = "https://raw.githubusercontent.com/lucasF4lcao/analise_reclameaqui/main/reclamacoes_tratado.csv"
-
 df = pd.read_csv(url)
-
-# =============================
-# VARIÁVEIS DERIVADAS
-# =============================
 
 df["tamanho_texto"] = df["DESCRICAO"].astype(str).apply(len)
 
-# =============================
-# FILTROS
-# =============================
 
+#filtros
 st.sidebar.header("Filtros")
 
 estado = st.sidebar.multiselect(
@@ -59,10 +48,8 @@ df_filtrado = df[
     (df["tamanho_texto"].between(texto_min, texto_max))
 ]
 
-# =============================
-# MÉTRICAS (CORRIGIDO)
-# =============================
 
+#metricas
 col1, col2, col3, col4, col5, col6 = st.columns(6)
 
 col1.metric("Total de Reclamações", len(df_filtrado))
@@ -79,10 +66,8 @@ col6.metric("Não Resolvidas", len(df_filtrado[df_filtrado["STATUS"] == "nao res
 
 st.divider()
 
-# =============================
-# SÉRIE TEMPORAL (CORRIGIDO)
-# =============================
 
+#serie temporal
 st.subheader("Evolução das Reclamações")
 
 serie = df_filtrado.groupby(["ANO","MES"]).size().reset_index(name="quantidade")
@@ -109,10 +94,8 @@ fig.add_trace(go.Scatter(
 
 st.plotly_chart(fig, use_container_width=True)
 
-# =============================
-# MAPA DO BRASIL (CORRIGIDO)
-# =============================
 
+#mapa do brasil
 st.subheader("Mapa de Reclamações por Estado")
 
 url = "https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/brazil-states.geojson"
@@ -133,10 +116,8 @@ fig_mapa.update_geos(fitbounds="locations", visible=False)
 
 st.plotly_chart(fig_mapa, use_container_width=True)
 
-# =============================
-# PARETO (CORRIGIDO)
-# =============================
 
+#pareto
 st.subheader("Estados com Mais Reclamações")
 
 pareto = df_filtrado.groupby("ESTADO").size().reset_index(name="quantidade")
@@ -150,10 +131,8 @@ fig_pareto = px.bar(
 
 st.plotly_chart(fig_pareto, use_container_width=True)
 
-# =============================
-# STATUS (OK)
-# =============================
 
+#status
 st.subheader("Distribuição de Status")
 
 status_count = df_filtrado["STATUS"].value_counts().reset_index()
@@ -167,10 +146,8 @@ fig_status = px.pie(
 
 st.plotly_chart(fig_status, use_container_width=True)
 
-# =============================
-# BOXPLOT
-# =============================
 
+#boxplot
 st.subheader("Tamanho das Reclamações por Status")
 
 fig_box = px.box(
@@ -181,10 +158,8 @@ fig_box = px.box(
 
 st.plotly_chart(fig_box, use_container_width=True)
 
-# =============================
-# WORDCLOUD
-# =============================
 
+#worldcloud
 st.subheader("Palavras mais Frequentes")
 
 stop_words = set(stopwords.words("portuguese"))
