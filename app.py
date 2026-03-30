@@ -96,29 +96,29 @@ st.plotly_chart(fig, use_container_width=True)
 
 
 #cruzamento
-st.subheader("Status por Categoria")
+st.subheader("Status por Estado")
 
-top_categorias = df_filtrado["CATEGORIA"].value_counts().nlargest(10).index
+top_estados = df_filtrado["ESTADO"].value_counts().nlargest(10).index
 
-cruzamento_cat = df_filtrado[df_filtrado["CATEGORIA"].isin(top_categorias)] \
-    .groupby(["CATEGORIA", "STATUS"]) \
+cruzamento_estado = df_filtrado[df_filtrado["ESTADO"].isin(top_estados)] \
+    .groupby(["ESTADO", "STATUS"]) \
     .size() \
     .reset_index(name="quantidade")
 
-fig_cat = px.bar(
-    cruzamento_cat,
-    x="CATEGORIA",
+fig_estado = px.bar(
+    cruzamento_estado,
+    x="ESTADO",
     y="quantidade",
     color="STATUS",
     barmode="group"
 )
 
-fig_cat.update_layout(
+fig_estado.update_layout(
     xaxis_tickangle=-45,
     height=500
 )
 
-st.plotly_chart(fig_cat, use_container_width=True)
+st.plotly_chart(fig_estado, use_container_width=True)
 
 
 #mapa do brasil
