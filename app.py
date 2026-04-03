@@ -161,6 +161,9 @@ st.plotly_chart(fig, use_container_width=True)
 # cruzamento
 st.subheader("Status por Estado")
 
+#cruzamento
+st.subheader("Status por Estado")
+
 top_estados = df_filtrado["ESTADO"].value_counts().nlargest(10).index
 
 cruzamento_estado = df_filtrado[df_filtrado["ESTADO"].isin(top_estados)] \
